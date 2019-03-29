@@ -278,8 +278,3 @@ class ecosystem:
 
 a=ecosystem(100)
 a.mutate_fraction(0.1,0.02)
-
-
-
-
-
