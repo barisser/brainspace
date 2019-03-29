@@ -12,8 +12,8 @@ test_length=6
 test_n=6
 
 def logistic(x):
-    r=1+math.pow(math.e,-1*x)
-    d=math.pow(r,-1)
+    r=1+math.pow(math.e, -1*x)
+    d=math.pow(r, -1)
     return d
 
 class neuron:
@@ -54,11 +54,11 @@ class unit:
         self.clearall()
         self.rawgenome=intgenome
 
-        for i in range(0,genome['neurons_n']):
+        for i in range(0, genome['neurons_n']):
             a=neuron(i)
             self.neurons.append(a)
 
-        for i in range(0,genome['axons_n']):
+        for i in range(0, genome['axons_n']):
             b=axon(i, genome['axons'][i]['dest'], genome['axons'][i]['weight'])
             self.axons.append(b)
             source=genome['axons'][i]['source']
@@ -70,7 +70,7 @@ class unit:
             self.output_neurons.append(y)
 
     def reset_neurons(self):
-        for i in range(0,len(self.neurons)):
+        for i in range(0, len(self.neurons)):
             self.neurons[i].amount=0
 
     def fire(self):
@@ -90,36 +90,36 @@ class unit:
             results.append(value)
         return results
 
-    def set_inputs(self,data):
+    def set_inputs(self, data):
         if len(data)>=len(self.input_neurons):
-            for i in range(0,len(self.input_neurons)):
+            for i in range(0, len(self.input_neurons)):
                 self.neurons[self.input_neurons[i]].amount=data[i]
         else:
-            for i in range(0,len(data)):
+            for i in range(0, len(data)):
                 self.neurons[self.input_neurons[i]].amount=data[i]
-            for i in range(len(data),len(self.input_neurons)):
+            for i in range(len(data), len(self.input_neurons)):
                 self.neurons[self.input_neurons[i]].amount=0
 
     def AND_test(self):
         global outs
         randominputs=[]
-        for i in range(0,test_n):
+        for i in range(0, test_n):
             rand1=random.random()*2-1
             rand2=random.random()*2-1
-            randominputs.append([rand1,rand2])
+            randominputs.append([rand1, rand2])
         #print randominputs
 
         mycode=self.rawgenome
 
         score=0
         
-        for i in range(0,test_n):
+        for i in range(0, test_n):
             self.reset_neurons()
             
             #INITIALIZE BETWEEN TESTS
             self.set_inputs(randominputs[i])
             
-            for d in range(0,test_length):
+            for d in range(0, test_length):
                 self.fire()
 
             outs=self.outputs()
@@ -146,7 +146,7 @@ def int_to_genome(n):
     n=n/hard_max_axons_per_unit
 
     genome['axons']=[]
-    for i in range(0,genome['axons_n']):
+    for i in range(0, genome['axons_n']):
         axondata={}
         axondata['source']=int(n%genome['neurons_n'])
         n=n/genome['neurons_n']
@@ -159,7 +159,7 @@ def int_to_genome(n):
     genome['inputs_n']=int((n%(genome['neurons_n']))+1)
     n=n/genome['neurons_n']
     genome['inputs']=[]
-    for i in range(0,genome['inputs_n']):
+    for i in range(0, genome['inputs_n']):
         inpn=int(n%genome['neurons_n'])
         n=n/genome['neurons_n']
         genome['inputs'].append(inpn)    
@@ -182,7 +182,7 @@ def mutate_genome(rawgenome, fraction_mutated):  #fraction mutation is average
     point_mutations_average=fraction_mutated*float(len(str(rawgenome)))
     #actual point mutations fluctuates around that average fraction
 
-    pointmutations = (math.erf(float(random.randrange(-50,50))/100.0)+1)*point_mutations_average
+    pointmutations = (math.erf(float(random.randrange(-50, 50))/100.0)+1)*point_mutations_average
     pointmutations=int(pointmutations)
     if pointmutations<0:
         pointmutations=0
@@ -199,7 +199,7 @@ def mutate_genome(rawgenome, fraction_mutated):  #fraction mutation is average
             alldone=True
             
         else:
-            randposition=random.randrange(0,int(len(str(rawgenome))-2))
+            randposition=random.randrange(0, int(len(str(rawgenome))-2))
             decider=random.random()
             if decider>=0.5:
                 genomelist[randposition]=str(int(genomelist[randposition])+1)
@@ -239,7 +239,7 @@ def random_genome():
 class ecosystem:
     def __init__(self, units_n):
         self.units=[]
-        for i in range(0,units_n):
+        for i in range(0, units_n):
             r=unit()
             r.generate(randint())
             self.units.append(r)
@@ -247,7 +247,7 @@ class ecosystem:
 
     def run_tests(self):
         scores=[]
-        for i in range(0,len(self.units)): #NEED TO GENErALIZE TESTS
+        for i in range(0, len(self.units)): #NEED TO GENErALIZE TESTS
             scores.append(self.units[i].AND_test())
         return scores
 
@@ -266,7 +266,7 @@ class ecosystem:
             if total_already_mutated>=total_to_mutate:
                 alldone=True
             else:
-                randomchoice=random.randrange(0,len(self.units))
+                randomchoice=random.randrange(0, len(self.units))
                 oldgenome=self.units[randomchoice].rawgenome
                 newgenome=mutate_genome(oldgenome, fraction_of_mutation)
                 self.units[randomchoice].generate(newgenome)
@@ -277,7 +277,7 @@ class ecosystem:
     
 
 a=ecosystem(100)
-a.mutate_fraction(0.1,0.02)
+a.mutate_fraction(0.1, 0.02)
 
 
 
