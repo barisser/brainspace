@@ -39,7 +39,7 @@ class unit:
         self.id=-1
 
         self.rawgenome=-1
-        
+
     def clearall(self):
         self.neurons=[]
         self.axons=[]
@@ -112,13 +112,13 @@ class unit:
         mycode=self.rawgenome
 
         score=0
-        
+
         for i in range(0,test_n):
             self.reset_neurons()
-            
+
             #INITIALIZE BETWEEN TESTS
             self.set_inputs(randominputs[i])
-            
+
             for d in range(0,test_length):
                 self.fire()
 
@@ -132,10 +132,10 @@ class unit:
 
         print score
         return score
-            
-            
 
-    
+
+
+
 
 def int_to_genome(n):
     genome={}
@@ -171,8 +171,8 @@ def int_to_genome(n):
         outpn=int(n%genome['outputs_n'])
         n=n/genome['outputs_n']
         genome['outputs'].append(outpn)
-    
-   
+
+
     #print n
     return genome
 
@@ -193,11 +193,11 @@ def mutate_genome(rawgenome, fraction_mutated):  #fraction mutation is average
     mutationcount=0
 
     genomelist=list(str(rawgenome))
-    
+
     while not alldone:
         if mutationcount>=pointmutations:
             alldone=True
-            
+
         else:
             randposition=random.randrange(0,int(len(str(rawgenome))-2))
             decider=random.random()
@@ -212,7 +212,7 @@ def mutate_genome(rawgenome, fraction_mutated):  #fraction mutation is average
                     genomelist[randposition]='0'
                 mutationcount=mutationcount+1
 
-    
+
     rawgenome=''.join(genomelist)
     rawgenome=long(rawgenome)
     return rawgenome
@@ -220,10 +220,10 @@ def mutate_genome(rawgenome, fraction_mutated):  #fraction mutation is average
 def crossover_genomes(genomea, genomeb):  #CROSSOVER 50/50
     #THIS IS PROBLEMATIC BECAUSE CHILDREN WILL HAVE ALMOST NO TRAITS FROM PARENTS ACCORDING TO GENOME PARSING
     crossovertimes=(len(genomea)+len(genomeb))/
-    
-    
-        
-    
+
+
+
+
 
 def randint():
     loglimit=6+7*hard_max_axons_per_unit
@@ -272,9 +272,9 @@ class ecosystem:
                 self.units[randomchoice].generate(newgenome)
                 total_already_mutated=total_already_mutated+1
                 print str(total_already_mutated)+" / "+str(total_to_mutate)
-                
 
-    
+
+
 
 a=ecosystem(100)
 a.mutate_fraction(0.1,0.02)
