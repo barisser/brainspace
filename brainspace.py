@@ -11,10 +11,12 @@ axon_weight_max=1
 test_length=6
 test_n=6
 
+
 def logistic(x):
     r=1+math.pow(math.e,-1*x)
     d=math.pow(r,-1)
     return d
+
 
 class neuron:
 
@@ -29,6 +31,7 @@ class axon:
         self.weight=weight
         self.id=id
         self.destination_neuron=destination
+
 
 class unit:
     def __init__(self):
@@ -217,6 +220,7 @@ def mutate_genome(rawgenome, fraction_mutated):  #fraction mutation is average
     rawgenome=long(rawgenome)
     return rawgenome
 
+
 def crossover_genomes(genomea, genomeb):  #CROSSOVER 50/50
     #THIS IS PROBLEMATIC BECAUSE CHILDREN WILL HAVE ALMOST NO TRAITS FROM PARENTS ACCORDING TO GENOME PARSING
     crossovertimes=(len(genomea)+len(genomeb))/
@@ -228,6 +232,7 @@ def crossover_genomes(genomea, genomeb):  #CROSSOVER 50/50
 def randint():
     loglimit=6+7*hard_max_axons_per_unit
     return random.getrandbits(loglimit*5)
+
 
 def random_genome():
     a=randint()
